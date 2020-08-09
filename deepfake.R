@@ -1,8 +1,8 @@
-
+#wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1SUgk04nSLmB70zHzbetIKM414qz9GAoH' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1SUgk04nSLmB70zHzbetIKM414qz9GAoH" -O deepfake.zip && rm -rf /tmp/cookies.txt
 # Preprocess Function
-
+# https://drive.google.com/file/d/1SUgk04nSLmB70zHzbetIKM414qz9GAoH/view?usp=sharing
+# https://drive.google.com/u/0/open?id=1SUgk04nSLmB70zHzbetIKM414qz9GAoH
 library(dplyr)
-library(magrittr)
 library(opencv)
 library(magick)
 
@@ -191,3 +191,4 @@ history <- model %>% fit_generator(
   steps_per_epoch = ceiling(train_generator$samples/train_generator$batch_size),
   epochs = 10
 )
+
