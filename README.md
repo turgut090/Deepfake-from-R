@@ -1,2 +1,2 @@
 # Deepfake-from-R
-Deepfake Detection and distributed training on TPUs
+Deepfake Detection challenge from R
