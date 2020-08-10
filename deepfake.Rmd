@@ -7,7 +7,7 @@ author:
     url: https://github.com/henry090
     affiliation: QSS Analytics
     affiliation_url: http://www.qss.az/
-date: 11-30-2020
+date: 08-11-2020
 categories:
   - Image Recognition & Image
 creative_commons: CC BY
@@ -56,20 +56,20 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introduction
 
-Working with video datasets, particularly with detection of AI based fake objects is very challenging due to proper frame selection and face detection. However, solution for this case can be done from R side as well. For this purpose, one can benefit the opportunities of opencv, magick and keras libraries from R.
+Working with video datasets, particularly with detection of AI-based fake objects is very challenging due to proper frame selection and face detection. However, the solution for this case can be found from the R side as well. For this purpose, one can benefit the opportunities of OpenCV, magick, and Keras libraries from R.
 
-Before going into detailed explanation and code exploration, readers should know that there is no need to copy paste code chunks. Because at the  of the post one can find a link to Google Colab with GPU acceleration. This Kernel allows everyone to run and reproduce the same results.
+Before going into detailed explanation and code exploration, readers should know that there is no need to copy-paste code chunks. Because at the end of the post one can find a link to Google Colab with GPU acceleration. This Kernel allows everyone to run and reproduce the same results.
 
 
 ## Data exploration
 
 [The dataset](https://www.kaggle.com/c/deepfake-detection-challenge/overview/description) that we are going to analyze is provided by AWS, Facebook, Microsoft, the Partnership on AI’s Media Integrity Steering Committee, and academics.
 
-It contains both real and AI generated fake videos. The total size is over 470 GB. However, the sample 4 GB dataset is separately available.
+It contains both real and AI-generated fake videos. The total size is over 470 GB. However, the sample 4 GB dataset is separately available.
 
 ## Frame extraction
 
-The videos in the folders are in the format of _mp4_ and has various length. Caption of right frames and definition of total frames for each second is out of the scope of this post. We usually took 1-3 fps for every video.
+The videos in the folders are in the format of _mp4_ and have various lengths. The caption of the right frames and definition of total frames for each second is out of the scope of this post. We usually took 1-3 fps for every video.
 
 > Note: Set fps to NULL if you want to extract all frames.
 
@@ -93,16 +93,16 @@ We saw just the first one. What about the rest of them?
 knitr::include_graphics("files/self.gif")
 ```
 
-Looking at the gif one can observe that some fakes are very easy to differentiate but a small fraction is too similar to real ones but has a less fake effect on the face of the person which is another challenge during data preparation.
+Looking at the gif one can observe that some fakes are very easy to differentiate but a small fraction is too similar to real ones but has a less fake effect on the face of the person. This is another challenge during data preparation.
 
 
 ## Face detection
 
-One can read all or the sample of video files. And afterwards, we have to detect and extract faces. 
+We can read all the files or take a sample. And afterward, detect and extract faces. 
 
-There is a famous library Opencv^[[Opencv](https://opencv.org/)] which is designed for computer vision tasks. R has also some bindings to Opencv, so extracting faces will not be a challenge for us.
+There is a very well-known library Opencv^[[Opencv](https://opencv.org/)] which is designed for computer vision tasks. R has also some bindings to Opencv, so extracting faces will not be a challenge for us.
 
-At first, we can find out face location via bounding boxes with Opencv and then with magick library automatically extract faces from all of the images.
+At first, face locations need to be determined via bounding boxes with Opencv and then with magick library automatically extracted from all of the images.
 
 ```{r eval=F, echo=T}
 # get face location and calculate bounding box
@@ -153,7 +153,7 @@ knitr::include_graphics("files/frame_1_face.png")
  
 ## Bringing a solution
 
-After dataset preparation, it is time to build a deep learning model with Keras. We can quickly place all the images to folders and using image generators feed faces to a pretrained Keras model. 
+After dataset preparation, it is time to build a deep learning model with Keras. We can quickly place all the images to folders and using image generators feed faces to a pre-trained Keras model. 
 
 ```{r eval=F,echo=T}
 train_dir = 'fakes_reals'
@@ -217,14 +217,15 @@ history <- model %>% fit_generator(
 
 ## Conclusion
 
-This post shows how the R community can work with video data and bring a solution to computer vision task. However, readers should know that implementation of the followng steps may drastically improve the model performace:
+This post shows how the R community can work with video data and bring a solution to the computer vision tasks. However, readers should know that the implementation of the following steps may drastically improve model performance:
 
-- extract of all of the fraams from video files
-- use another tehchnology to detect faces -- "MTCNN face detector"
+- extract of all of the frames from video files
+- upload different pre-trained weights from Keras library
+- use another technology to detect faces -- "MTCNN face detector"
 - use image ops from TensorFlow Addons^[[TensorFlow Addons](https://github.com/henry090/tfaddons)] for better fake face detection
-- and many more other ways.
+- and in many other ways.
 
-Try these options on Deepfake detection challenge and share your results in comment section!
+Try these options on the Deepfake detection challenge and share your results in the comment section!
 
 
 
